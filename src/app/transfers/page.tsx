@@ -3,6 +3,8 @@
 import { faker } from "@faker-js/faker";
 import { useEffect, useState } from "react";
 
+faker.seed(123);
+
 const countries = [
   "Afghanistan",
   "Albania",

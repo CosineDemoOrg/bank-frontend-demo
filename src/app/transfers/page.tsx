@@ -204,7 +204,7 @@ const countries = [
 interface Transaction {
   from: string;
   to: string;
-  amount: string;
+  amount: number;
   date: Date;
 }
 
@@ -225,7 +225,7 @@ const dummyInternalTransactions = Array(4)
   .map((_, index) => ({
     from: faker.finance.accountNumber(),
     to: faker.finance.accountNumber(),
-    amount: faker.finance.amount(100, 1000),
+    amount: Number(faker.finance.amount(100, 1000)),
     date: faker.date.past(),
   }));
 const dummyDomesticTransactions = Array(4)
@@ -233,7 +233,7 @@ const dummyDomesticTransactions = Array(4)
   .map((_, index) => ({
     from: faker.finance.accountNumber(),
     to: faker.finance.accountNumber(),
-    amount: faker.finance.amount(100, 1000),
+    amount: Number(faker.finance.amount(100, 1000)),
     date: faker.date.past(),
     bank: faker.helpers.arrayElement(["Bank Masr", "CIB", "QNB"]),
   }));
@@ -242,7 +242,7 @@ const dummyInternationalTransactions = Array(4)
   .map((_, index) => ({
     from: faker.finance.accountNumber(),
     to: faker.finance.accountNumber(),
-    amount: faker.finance.amount(100, 1000),
+    amount: Number(faker.finance.amount(100, 1000)),
     date: faker.date.past(),
     iban: faker.finance.iban(),
     bank: faker.helpers.arrayElement(["Deutsche Bank", "HSBC", "Barclays"]),
@@ -261,6 +261,12 @@ export default function Transfers() {
   >([]);
   const [loading, setLoading] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
+
+  const formatAmount = (amount: number) =>
+    new Intl.NumberFormat("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(amount);
 
   useEffect(() => {
     setInternalTransactions(dummyInternalTransactions);
@@ -675,7 +681,7 @@ export default function Transfers() {
                             <tr key={index}>
                               <td>{transaction.from}</td>
                               <td>{transaction.to}</td>
-                              <td>{transaction.amount} $</td>
+                              <td>{formatAmount(transaction.amount)} $</td>
                               <td>{transaction.date.toLocaleDateString()}</td>
                             </tr>
                           ))}
@@ -710,7 +716,7 @@ export default function Transfers() {
                             <tr key={index}>
                               <td>{transaction.from}</td>
                               <td>{transaction.to}</td>
-                              <td>{transaction.amount} $</td>
+                              <td>{formatAmount(transaction.amount)} $</td>
                               <td>{transaction.date.toLocaleDateString()}</td>
                               <td>{transaction.bank}</td>
                             </tr>
@@ -750,7 +756,7 @@ export default function Transfers() {
                               <tr key={index}>
                                 <td>{transaction.from}</td>
                                 <td>{transaction.to}</td>
-                                <td>{transaction.amount} $</td>
+                                <td>{formatAmount(transaction.amount)} $</td>
                                 <td>{transaction.date.toLocaleDateString()}</td>
                                 <td>{transaction.iban}</td>
                                 <td>{transaction.bank}</td>

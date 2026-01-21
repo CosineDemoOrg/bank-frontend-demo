@@ -163,7 +163,7 @@ export default function RootLayout({
       <head>
         <title>Online Banking System</title>
       </head>
-      <body data-bs-theme="dark">
+      <body data-bs-theme="light">
         <GlobalStateContext.Provider
           value={{ setShowSidebar, setUser, setLoading, user }}
         >

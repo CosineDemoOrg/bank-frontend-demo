@@ -11,7 +11,6 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -67,19 +66,27 @@ const labels = [
   "December",
 ];
 
+const creditCardDebtByMonth = [
+  5200, 4800, 5300, 5100, 4950, 4700, 4600, 4500, 4400, 4300, 4200, 4100,
+];
+
+const accountBalanceByMonth = [
+  6000, 6100, 6050, 6150, 6200, 6300, 6400, 6500, 6600, 6700, 6800, 6900,
+];
+
 const data = {
   labels,
   datasets: [
     {
       label: "Credit Card Debt",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 10000 })),
+      data: creditCardDebtByMonth,
       borderColor: "rgb(197, 35, 189)",
       backgroundColor: "rgb(197, 35, 189)",
       yAxisID: "y",
     },
     {
       label: "Account Balance",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 10000 })),
+      data: accountBalanceByMonth,
       borderColor: "rgb(255, 255, 255)",
       backgroundColor: "rgb(255, 255, 255)",
       yAxisID: "y1",

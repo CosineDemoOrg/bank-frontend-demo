@@ -48,7 +48,7 @@ export default function Announcement() {
           >
             <div className="ms-2 me-auto">
               <div className="fw-bold">Report 6401 Resolved</div>
-              Your report has been solved succesfully review now !
+              Your report has been solved successfully. Review now!
             </div>
             <small>
               3 days ago <i className="bi bi-envelope-open-fill"></i>
@@ -94,7 +94,7 @@ export default function Announcement() {
             >
               <div className="ms-2 me-auto">
                 <div className="fw-bold">Report 6401 Resolved</div>
-                Your report has been solved succesfully review now !
+                Your report has been solved successfully. Review now!
               </div>
               <small>
                 3 days ago <i className="bi bi-envelope-open-fill"></i>

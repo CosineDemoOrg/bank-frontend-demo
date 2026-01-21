@@ -27,7 +27,7 @@ export default function Report() {
       <div className="col-xl-8 col-lg-10 col-md-12">
         {showTextBox && (
           <div className="alert alert-success" role="alert">
-            Report Status updated succesfully!
+            Report status updated successfully!
           </div>
         )}
         <div className="card">

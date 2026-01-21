@@ -7,7 +7,7 @@ export default function BankAnnouncement() {
     <form className="mt-4">
       {showTextBox && (
         <div className="alert alert-success" role="alert">
-          Announcement Sent succesfully !
+          Announcement sent successfully!
         </div>
       )}
       <div className="mb-3">

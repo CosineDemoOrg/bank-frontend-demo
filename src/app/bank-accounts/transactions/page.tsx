@@ -12,7 +12,6 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
 
 ChartJS.register(
   CategoryScale,
@@ -52,35 +51,21 @@ const labels = [
   "December",
 ];
 
+const accountBalances = [
+  2500, 3200, 4100, 3800, 4600, 5200, 4950, 5300, 5800, 6100, 6400, 7000,
+];
+
 const transData = {
   labels,
   datasets: [
     {
       label: "Account Balance",
-      data: labels.map(() => faker.datatype.number({ min: -0, max: 10000 })),
+      data: accountBalances,
       borderColor: "rgb(197, 35, 189)",
       backgroundColor: "rgba(255, 99, 132, 0.5)",
     },
   ],
 };
-
-const transactions = [
-  {
-    date: new Date(),
-    amount: 1234,
-    recipientSender: "Ahmed",
-  },
-];
-
-for (let i = 0; i < 20; i++) {
-  transactions.push({
-    date: faker.date.between({ from: "2022-1-1", to: "2022-12-12" }),
-    amount: faker.number.int({ min: -10000, max: 30000 }),
-    recipientSender: faker.company.name(),
-  });
-}
-
-transactions.sort((a, b) => a.date.getTime() - b.date.getTime());
 
 export default function Home() {
   return (

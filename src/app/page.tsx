@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      <div className="row g-2">
+      <div className="row g-4">
         {user?.type == UserType.CLIENT && (
           <>
             <div className="col-xl-8 col-md-12 d-flex flex-column gap-3">

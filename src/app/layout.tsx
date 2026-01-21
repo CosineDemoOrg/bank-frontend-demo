@@ -223,7 +223,7 @@ export default function RootLayout({
             </div>
           ) : (
             <>
-              <div className="container-fluid h-100">
+              <div className="container-fluid h-100 app-shell">
                 <div className="d-block d-md-none p-4"></div>
                 <div className="row h-100">
                   {showSidebar && (
@@ -300,7 +300,7 @@ export default function RootLayout({
                       <div className="col-md-4 col-xl-2 col-lg-3 d-none d-md-block"></div>
                     </>
                   )}
-                  <div className="col py-4">{children}</div>
+                  <div className="col py-4 py-md-5 px-3 px-lg-4">{children}</div>
                 </div>
               </div>
             </>

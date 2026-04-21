@@ -9,6 +9,10 @@ import { Miriam_Libre } from "next/font/google";
 import "./global.scss";
 import React from "react";
 import { User, UserType } from "@/types";
+import DemoAuthBypass from "@/components/DemoAuthBypass";
+import { NotificationsProvider } from "@/components/NotificationContext";
+import { ToastsProvider } from "@/components/ToastSystem";
+import NotificationBell from "@/components/NotificationBell";
 
 const spaceMono = Miriam_Libre({
   weight: "400",
@@ -164,15 +168,19 @@ export default function RootLayout({
         <title>Online Banking System</title>
       </head>
       <body data-bs-theme="dark">
+        <DemoAuthBypass />
         <GlobalStateContext.Provider
           value={{ setShowSidebar, setUser, setLoading, user }}
         >
+          <ToastsProvider>
+          <NotificationsProvider>
           {showSidebar && (
             <nav className="navbar navbar-expand-lg bg-body-tertiary d-block d-md-none fixed-top">
               <div className="container-fluid">
                 <Link className="navbar-brand" href="/">
                   <img src="/logo.png" alt="logo" width={50} height={25} />
                 </Link>
+                <NotificationBell className="ms-auto me-2" />
                 <button
                   className="navbar-toggler"
                   type="button"
@@ -248,6 +256,9 @@ export default function RootLayout({
                             />
                           </Link>{" "}
                         </Link>
+                        <div className="d-flex justify-content-end mt-2">
+                          <NotificationBell />
+                        </div>
                         <ul className="nav nav-pills flex-column my-auto">
                           {sidebarLinks
                             .filter((l) => l.userTypes.includes(user!.type))
@@ -305,6 +316,8 @@ export default function RootLayout({
               </div>
             </>
           )}
+          </NotificationsProvider>
+          </ToastsProvider>
         </GlobalStateContext.Provider>
       </body>
     </html>

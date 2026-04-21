@@ -1,7 +1,11 @@
+"use client";
+
 import { CreditCard } from "@/components/CreditCard";
 import Link from "next/link";
+import { useNotifications } from "@/components/NotificationContext";
 
-export default function contact() {
+export default function BillPaymentForm() {
+  const { addNotification } = useNotifications();
   return (
     <section>
       <div className="mt-5"></div>
@@ -131,6 +135,14 @@ export default function contact() {
               <Link
                 className="btn btn-primary btn-lg d-flex justify-content-center mt-2 mb-2 ms-2 me-2 "
                 href="/thank-you"
+                onClick={() => {
+                  addNotification({
+                    title: "Bill payment submitted",
+                    body: "Your $85.00 bill payment has been submitted.",
+                    category: "bill",
+                    href: "/bills",
+                  });
+                }}
               >
                 Proceed
               </Link>

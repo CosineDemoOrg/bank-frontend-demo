@@ -2,6 +2,7 @@
 
 import { faker } from "@faker-js/faker";
 import { useEffect, useState } from "react";
+import { useNotifications } from "@/components/NotificationContext";
 
 const countries = [
   "Afghanistan",
@@ -261,6 +262,17 @@ export default function Transfers() {
   >([]);
   const [loading, setLoading] = useState(true);
   const [showAlert, setShowAlert] = useState(false);
+  const { addNotification } = useNotifications();
+
+  const readTransferFields = (modalId: string) => {
+    if (typeof document === "undefined") return { amount: "", to: "" };
+    const modal = document.getElementById(modalId);
+    const amount =
+      (modal?.querySelector<HTMLInputElement>("#amount")?.value ?? "").trim();
+    const to =
+      (modal?.querySelector<HTMLInputElement>("#to-account")?.value ?? "").trim();
+    return { amount, to };
+  };
 
   useEffect(() => {
     setInternalTransactions(dummyInternalTransactions);
@@ -357,7 +369,21 @@ export default function Transfers() {
                 className="btn btn-primary"
                 data-bs-dismiss="modal"
                 onClick={() => {
+                  const { amount, to } = readTransferFields(
+                    "internal-transfer-modal"
+                  );
                   setShowAlert(true);
+                  addNotification({
+                    title: "Internal transfer sent",
+                    body:
+                      amount || to
+                        ? `Sent${amount ? ` $${amount}` : ""}${
+                            to ? ` to account ${to}` : ""
+                          }`
+                        : "Your internal transfer was submitted.",
+                    category: "transfer",
+                    href: "/bank-accounts/transactions",
+                  });
                 }}
               >
                 <i className="bi bi-arrow-left-right me-2"></i>Transfer
@@ -464,7 +490,21 @@ export default function Transfers() {
                 className="btn btn-primary"
                 data-bs-dismiss="modal"
                 onClick={() => {
+                  const { amount, to } = readTransferFields(
+                    "domestic-transfer-modal"
+                  );
                   setShowAlert(true);
+                  addNotification({
+                    title: "Domestic transfer initiated",
+                    body:
+                      amount || to
+                        ? `Transferred${amount ? ` $${amount}` : ""}${
+                            to ? ` to ${to}` : ""
+                          }`
+                        : "Your domestic transfer was submitted.",
+                    category: "transfer",
+                    href: "/bank-accounts/transactions",
+                  });
                 }}
               >
                 <i className="bi bi-arrow-left-right me-2"></i>Transfer
@@ -594,7 +634,21 @@ export default function Transfers() {
                 className="btn btn-primary"
                 data-bs-dismiss="modal"
                 onClick={() => {
+                  const { amount, to } = readTransferFields(
+                    "international-transfer-modal"
+                  );
                   setShowAlert(true);
+                  addNotification({
+                    title: "International transfer initiated",
+                    body:
+                      amount || to
+                        ? `Sent${amount ? ` $${amount}` : ""}${
+                            to ? ` to IBAN ${to}` : ""
+                          }`
+                        : "Your international transfer was submitted.",
+                    category: "transfer",
+                    href: "/bank-accounts/transactions",
+                  });
                 }}
               >
                 <i className="bi bi-arrow-left-right me-2"></i> Transfer

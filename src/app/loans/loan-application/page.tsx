@@ -1,9 +1,11 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useNotifications } from "@/components/NotificationContext";
 export default function Accounts() {
   const [showAlert, setShowAlert] = useState(false);
   const router = useRouter();
+  const { addNotification } = useNotifications();
   return (
     <div className="row h-100 d-flex justify-content-center align-items-center">
       <div className="col-xl-8 col-lg-10 col-md-12">
@@ -172,7 +174,23 @@ export default function Accounts() {
                 type="button"
                 className="btn btn-primary"
                 onClick={() => {
+                  const amount =
+                    typeof document !== "undefined"
+                      ? (
+                          document.getElementById(
+                            "desiredAmmount"
+                          ) as HTMLInputElement | null
+                        )?.value?.trim() ?? ""
+                      : "";
                   setShowAlert(true);
+                  addNotification({
+                    title: "Loan application submitted",
+                    body: amount
+                      ? `Your loan application for $${amount} has been received.`
+                      : "Your loan application has been received.",
+                    category: "loan",
+                    href: "/loans",
+                  });
                   setTimeout(() => {
                     router.push("/loans");
                   }, 3000);

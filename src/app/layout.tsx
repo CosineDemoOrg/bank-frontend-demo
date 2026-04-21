@@ -142,21 +142,28 @@ export default function RootLayout({
     require("bootstrap/dist/js/bootstrap.bundle");
   }, []);
 
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-
-    if (user) {
-      setUser(JSON.parse(user));
-      setShowSidebar(true);
-      setLoading(false);
-    } else {
-      if (!pathname.startsWith("/auth")) {
-        router.replace("/auth");
-      }
-    }
-  }, []);
-
   const pathname = usePathname();
+
+  useEffect(() => {
+    let user = localStorage.getItem("user");
+
+    // Demo mode: seed a mock client user so the app renders without auth.
+    if (!user) {
+      const demoUser: User = {
+        name: "Demo User",
+        email: "demo@example.com",
+        username: "demo",
+        type: UserType.CLIENT,
+        password: "",
+      };
+      localStorage.setItem("user", JSON.stringify(demoUser));
+      user = JSON.stringify(demoUser);
+    }
+
+    setUser(JSON.parse(user));
+    setShowSidebar(true);
+    setLoading(false);
+  }, []);
 
   return (
     <html lang="en" className={spaceMono.variable}>
